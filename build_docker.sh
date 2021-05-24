@@ -1,0 +1,1 @@
+docker build -t huoxian/dongtai-engine-abc:latest . && docker save huoxian/dongtai-engine-abc:latest > /tmp/dongtai-engine-abc.tar && scp /tmp/dongtai-engine-abc.tar ubuntu@192.168.0.126:/tmp/dongtai-engine-abc.tar
