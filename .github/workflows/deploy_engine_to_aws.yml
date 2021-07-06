@@ -31,6 +31,12 @@ jobs:
         with:
           python-version: 3.7
 
+      - name: Dump GitHub context
+        if: github.event.action == 'opened' || (github.event.action == 'closed' && github.event.pull_request.merged == false)
+        env:
+          GITHUB_CONTEXT: ${{ toJson(github) }}
+        run: echo "$GITHUB_CONTEXT"
+
       - name: Install TEST dependencies
         if: github.event.action == 'opened' || (github.event.action == 'closed' && github.event.pull_request.merged == false)
         run: |
