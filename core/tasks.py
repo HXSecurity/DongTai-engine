@@ -438,7 +438,10 @@ def update_sca():
 
 
 def is_alive(agent_id, timestamp):
-    return IastHeartbeat.objects.values('id').filter(agent__id=agent_id, dt__gt=(timestamp - 60 * 20)).exists()
+    """
+    Whether the probe is alive or not, the judgment condition: there is a heartbeat log within 2 minutes
+    """
+    return IastHeartbeat.objects.values('id').filter(agent__id=agent_id, dt__gt=(timestamp - 60 * 2)).exists()
 
 
 @shared_task(queue='dongtai-periodic-task')
