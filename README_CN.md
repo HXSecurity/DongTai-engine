@@ -1,7 +1,7 @@
 # DongTai-engine
 [![django-project](https://img.shields.io/badge/django%20versions-3.0.3-blue)](https://www.djangoproject.com/)
 [![DongTai-project](https://img.shields.io/badge/DongTai%20versions-beta-green)](https://huoxianclub.github.io/DongTai-Doc/)
-[![DongTai-engine](https://img.shields.io/badge/DongTai--engine-latest-lightgrey)](https://huoxianclub.github.io/DongTai-Doc/)
+[![DongTai-engine](https://img.shields.io/badge/DongTai-engine-v1.0.4-lightgrey)](https://huoxianclub.github.io/DongTai-Doc/)
 [![Deploy DongTai Engine To AWS Test](https://github.com/HXSecurity/DongTai-engine/actions/workflows/deploy_engine_to_aws_test.yml/badge.svg)](https://github.com/HXSecurity/DongTai-engine/actions/workflows/deploy_engine_to_aws_test.yml)
 [![Deploy DongTai Engine To AWS](https://github.com/HXSecurity/DongTai-engine/actions/workflows/deploy_engine_to_aws.yml/badge.svg)](https://github.com/HXSecurity/DongTai-engine/actions/workflows/deploy_engine_to_aws.yml)
 
@@ -31,7 +31,7 @@ DongTai-Engine用于处理DongTai探针采集到的数据，功能如下：
 
 1. 拉取官方镜像
 ```shell script
-$ docker pull registry.cn-beijing.aliyuncs.com/secnium/iast-saas-engine:latest
+$ docker pull registry.cn-beijing.aliyuncs.com/huoxian_pub/dongtai-engine:1.0.4
 ```
 
 2. 创建配置文件：`/etc/dongtai/config.ini`，内容如下：
@@ -68,19 +68,19 @@ access_key_secret = access_key
 
 3. 启动`dongtai-engine`容器并映射配置文件
 ```shell script
-$ docker run -d --name dongtai-engine -v /etc/dongtai/config.ini:/opt/dongtai/engine/conf/config.ini --restart=always secnium/iast-saas-engine:latest
+$ docker run -d --name dongtai-engine -v /etc/dongtai/config.ini:/opt/dongtai/engine/conf/config.ini --restart=always huoxian_pub/dongtai-engine:1.0.4
 ```
 
 4. 启动`dongtai-engine-task`容器并映射配置文件
 ```shell script
-$ docker run -d --name dongtai-engine-task -v /etc/dongtai/config.ini:/opt/dongtai/engine/conf/config.ini --restart=always secnium/iast-saas-engine:latest bash /opt/dongtai/engine/docker/entrypoint.sh
+$ docker run -d --name dongtai-engine-task -v /etc/dongtai/config.ini:/opt/dongtai/engine/conf/config.ini --restart=always huoxian_pub/dongtai-engine:1.0.4 bash /opt/dongtai/engine/docker/entrypoint.sh
 ```
 
 ### 构建镜像部署
 
 1. 构建镜像
 ```shell script
-$ docker build -t secnium/iast-saas-engine:latest .
+$ docker build -t huoxian_pub/dongtai-engine:1.0.4 .
 ```
 
 2. 创建配置文件：`/etc/dongtai/config.ini`，内容如下：
@@ -117,12 +117,12 @@ access_key_secret = access_key
 
 3. 启动`dongtai-engine`容器并映射配置文件
 ```shell script
-$ docker run -d --name dongtai-engine -v /etc/dongtai/config.ini:/opt/dongtai/engine/conf/config.ini --restart=always secnium/iast-saas-engine:latest
+$ docker run -d --name dongtai-engine -v /etc/dongtai/config.ini:/opt/dongtai/engine/conf/config.ini --restart=always huoxian_pub/dongtai-engine:1.0.4
 ```
 
 4. 启动`dongtai-engine-task`容器并映射配置文件
 ```shell script
-$ docker run -d --name dongtai-engine-task -v /etc/dongtai/config.ini:/opt/dongtai/engine/conf/config.ini --restart=always secnium/iast-saas-engine:latest bash /opt/dongtai/engine/docker/entrypoint.sh
+$ docker run -d --name dongtai-engine-task -v /etc/dongtai/config.ini:/opt/dongtai/engine/conf/config.ini --restart=always huoxian_pub/dongtai-engine:1.0.4 bash /opt/dongtai/engine/docker/entrypoint.sh
 ```
 
 ### 文档
