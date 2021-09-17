@@ -453,7 +453,7 @@ def update_agent_status():
     logger.info(f'检测引擎状态更新开始')
     timestamp = int(time.time())
     try:
-        running_agents = IastAgent.objects.values("id").filter(is_running=1)
+        running_agents = IastAgent.objects.values("id").filter(online=1)
         is_stopped_agents = list()
         for agent in running_agents:
             agent_id = agent['id']
