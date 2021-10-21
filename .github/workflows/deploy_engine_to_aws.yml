@@ -12,6 +12,16 @@ on:
 jobs:
   Run-DongTai-Engine-UnitTest:
     runs-on: ubuntu-latest
+    services:
+      mysql:
+        image: dongtai/dongtai-mysql:latest
+        ports:
+          - 3306:3306
+        options: --health-cmd "mysqladmin ping --silent" --health-interval 10s --health-timeout 180s --health-retries 10
+      redis:
+        image: dongtai/dongtai-redis:latest
+        ports:
+          - 6379:6379
     strategy:
       max-parallel: 4
       matrix:
@@ -39,7 +49,6 @@ jobs:
       - name: Run UnitTest
         run: |
           cp conf/config.ini.example conf/config.ini
-          python3 manage.py migrate
           python3 manage.py test
 
   Deploy-DongTai-Engine-To-PROD:
