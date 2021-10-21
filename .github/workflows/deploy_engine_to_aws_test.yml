@@ -12,7 +12,17 @@ on:
 jobs:
   # This workflow contains a single job called "build"
   Run-DongTai-Engine-UnitTest:
-    # The type of runner that the job will run on
+    services:
+      mysql:
+        image: dongtai/dongtai-mysql:latest
+        ports:
+          - 3306:3306
+        options: --health-cmd "mysqladmin ping --silent" --health-interval 10s --health-timeout 180s --health-retries 10
+      redis:
+        image: dongtai/dongtai-redis:latest
+        ports:
+          - 6379:6379
+
     runs-on: ubuntu-latest
     strategy:
       max-parallel: 4
@@ -43,7 +53,6 @@ jobs:
       - name: Django Testing project
         run: |
           cp conf/config.ini.example conf/config.ini
-          python3 manage.py migrate
           python3 manage.py test
 
   # This workflow contains a single job called "build"
