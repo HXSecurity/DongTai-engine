@@ -1,6 +1,6 @@
 # This is a basic workflow to help you get started with Actions
 
-name: Deploy DongTai Engine To AWS
+name: Deploy DongTai Engine To TEST
 
 on:
   pull_request:
@@ -103,7 +103,7 @@ jobs:
           context: .
           file: DockerfileTest
           push: true
-          tags: "registry.cn-beijing.aliyuncs.com/secnium/iast-saas-engine-test:latest,registry.cn-beijing.aliyuncs.com/secnium/iast-saas-engine-test:0.1.${{github.run_number}},"
+          tags: "registry.cn-beijing.aliyuncs.com/secnium/iast-saas-engine-test:0.1.${{github.run_number}},"
 
       - name: deploy Engine to cluster
         uses: wahyd4/kubectl-helm-action@master
