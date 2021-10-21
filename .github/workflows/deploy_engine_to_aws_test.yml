@@ -37,6 +37,12 @@ jobs:
         with:
           python-version: 3.7
 
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v1
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
@@ -125,4 +131,3 @@ jobs:
         with:
           url: ${{ secrets.WEBHOOK_URL }}
           body: '{"msg_type": "interactive","card": {"config": {"wide_screen_mode": true,"enable_forward": true},"elements": [{"tag": "div","text": {"content": "状态：项目${{github.repository}}构建成功\n分支：${{github.ref}}\n流程：${{github.workflow}}\n构建编号：${{github.run_number}}\n触发事件：${{github.event_name}}\n提交人：${{github.actor}}\nSHA-1：${{github.sha}}\n","tag": "lark_md"}}]}}'
-
