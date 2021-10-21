@@ -5,12 +5,47 @@ name: Deploy DongTai Engine To AWS
 on:
   pull_request:
     branches: [ main ]
+  push:
+    branches: [ main ]
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  # This workflow contains a single job called "build"
-  build:
+  Run-DongTai-Engine-UnitTest:
+    runs-on: ubuntu-latest
+    strategy:
+      max-parallel: 4
+      matrix:
+        python-version: [3.7]
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          python-version: 3.7
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements-prod.txt
+
+      - name: Lint with flake8
+        run: |
+          pip install flake8
+          # stop the build if there are Python syntax errors or undefined names
+          flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
+          # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
+          flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
+
+      - name: Run UnitTest
+        run: |
+          cp conf/config.ini.example conf/config.ini
+          python3 manage.py migrate
+          python3 manage.py test
+
+  Deploy-DongTai-Engine-To-PROD:
     # The type of runner that the job will run on
+    if: github.event_name == 'pull_request' && github.event.pull_request.merged == true
+    needs: [Run-DongTai-Engine-UnitTest]
     runs-on: ubuntu-latest
     strategy:
       max-parallel: 4
@@ -30,25 +65,6 @@ jobs:
         uses: actions/checkout@v1
         with:
           python-version: 3.7
-
-      - name: Install dependencies
-        run: |
-          python -m pip install --upgrade pip
-          pip install -r requirements-prod.txt
-
-      - name: Lint with flake8
-        run: |
-          pip install flake8
-          # stop the build if there are Python syntax errors or undefined names
-          flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
-          # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
-          flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
-
-      - name: Django Testing project
-        run: |
-          cp conf/config.ini.example conf/config.ini
-          python3 manage.py migrate
-          python3 manage.py test
 
       - name: Checkout
         uses: actions/checkout@v2
