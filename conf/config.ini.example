@@ -3,7 +3,7 @@ host = 127.0.0.1
 port = 3306
 name = dongtai_webapi
 user = root
-password = dongtai-webapi
+password = dongtai-iast
 
 [redis]
 host = localhost
