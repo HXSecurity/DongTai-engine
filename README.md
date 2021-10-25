@@ -31,7 +31,7 @@ The basic service configuration is as follows：
 
 1. Pull image
 ```shell script
-$ docker pull registry.cn-beijing.aliyuncs.com/secnium/iast-saas-engine:latest
+$ docker pull registry.cn-beijing.aliyuncs.com/secnium/iast-saas-engine:1.0.6
 ```
 
 2. Create a configuration file：`/etc/dongtai/config.ini`，The content is as follows：
@@ -69,19 +69,19 @@ access_key_secret = access_key
 
 3. Start the `dongtai-engine` container and map the configuration file
 ```shell script
-$ docker run -d --name dongtai-engine -v /etc/dongtai/config.ini:/opt/dongtai/engine/conf/config.ini --restart=always secnium/iast-saas-engine:latest
+$ docker run -d --name dongtai-engine -v /etc/dongtai/config.ini:/opt/dongtai/engine/conf/config.ini --restart=always secnium/iast-saas-engine:1.0.6
 ```
 
 4. Start the `dongtai-engine-task` container and map the configuration file
 ```shell script
-$ docker run -d --name dongtai-engine-task -v /etc/dongtai/config.ini:/opt/dongtai/engine/conf/config.ini --restart=always secnium/iast-saas-engine:latest bash /opt/dongtai/engine/docker/entrypoint.sh
+$ docker run -d --name dongtai-engine-task -v /etc/dongtai/config.ini:/opt/dongtai/engine/conf/config.ini --restart=always secnium/iast-saas-engine:1.0.6 bash /opt/dongtai/engine/docker/entrypoint.sh
 ```
 
 ### Build custom image
 
 1. Build image
 ```shell script
-$ docker build -t secnium/iast-saas-engine:latest .
+$ docker build -t secnium/iast-saas-engine:1.0.6 .
 ```
 
 2. Create a configuration file：`/etc/dongtai/config.ini`，The content is as follows：
@@ -118,12 +118,12 @@ access_key_secret = access_key
 
 3. Start the `dongtai-engine` container and map the configuration file
 ```shell script
-$ docker run -d --name dongtai-engine -v /etc/dongtai/config.ini:/opt/dongtai/engine/conf/config.ini --restart=always secnium/iast-saas-engine:latest
+$ docker run -d --name dongtai-engine -v /etc/dongtai/config.ini:/opt/dongtai/engine/conf/config.ini --restart=always secnium/iast-saas-engine:1.0.6
 ```
 
 4. Start the `dongtai-engine-task` container and map the configuration file
 ```shell script
-$ docker run -d --name dongtai-engine-task -v /etc/dongtai/config.ini:/opt/dongtai/engine/conf/config.ini --restart=always secnium/iast-saas-engine:latest bash /opt/dongtai/engine/docker/entrypoint.sh
+$ docker run -d --name dongtai-engine-task -v /etc/dongtai/config.ini:/opt/dongtai/engine/conf/config.ini --restart=always secnium/iast-saas-engine:1.0.6 bash /opt/dongtai/engine/docker/entrypoint.sh
 ```
 
 ### Contributing
