@@ -1,9 +1,21 @@
-#: core/plugins/export_report.py:71
-#, python-brace-format
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
 msgid ""
-"We found that there is {1} in the {0} page, attacker can modify the value of "
-"{2} to attack:"
 msgstr ""
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-10-21 19:40+0800\n"
+"PO-Revision-Date: 2021-08-09 12:55+0800\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: en\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Application-Id-Version: \n"
+"X-Generator: Poedit 2.2.2\n"
 
 #: core/plugins/export_report.py:86
 msgid "{} Line"
