@@ -14,7 +14,7 @@ jobs:
     runs-on: ubuntu-latest
     services:
       mysql:
-        image: dongtai/dongtai-mysql:latest
+        image: dongtai/dongtai-mysql:1.1.0
         ports:
           - 3306:3306
         options: >-
@@ -23,7 +23,7 @@ jobs:
           --health-timeout 180s
           --health-retries 10
       redis:
-        image: dongtai/dongtai-redis:latest
+        image: dongtai/dongtai-redis:1.1.0
         ports:
           - 6379:6379
         options: >-
