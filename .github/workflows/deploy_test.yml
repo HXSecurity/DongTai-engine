@@ -14,7 +14,7 @@ jobs:
     runs-on: ubuntu-latest
     services:
       mysql:
-        image: dongtai/dongtai-mysql:latest
+        image: dongtai/dongtai-mysql:1.1.3
         ports:
           - 3306:3306
         options: >-
@@ -23,7 +23,7 @@ jobs:
           --health-timeout 180s
           --health-retries 10
       redis:
-        image: dongtai/dongtai-redis:latest
+        image: dongtai/dongtai-redis:1.1.3
         ports:
           - 6379:6379
         options: >-
@@ -109,7 +109,7 @@ jobs:
           push: true
           tags: |
             registry.cn-beijing.aliyuncs.com/secnium/iast-saas-engine-test:0.1.${{github.run_number}},
-            registry.cn-beijing.aliyuncs.com/secnium/iast-saas-engine-test:latest
+            registry.cn-beijing.aliyuncs.com/secnium/iast-saas-engine-test:1.1.3
 
       - name: deploy Engine to cluster
         uses: wahyd4/kubectl-helm-action@master
