@@ -220,9 +220,9 @@ def parse_taint_position(source_method, vul_meta, taint_value):
     return param_names
 
 
-def save_vul(vul_meta, vul_level, strategy_id, vul_stack, top_stack, bottom_stack, **kwargs):
+def save_vul(vul_meta, vul_level, hook_strategy_id, strategy_id, vul_stack, top_stack, bottom_stack, **kwargs):
     logger.info(
-        f'save vul, strategy id: {strategy_id}, from: {"normal" if "replay_id" not in kwargs else "replay"}, id: {vul_meta.id}')
+        f'save vul, hook strategy id: {hook_strategy_id}, from: {"normal" if "replay_id" not in kwargs else "replay"}, id: {vul_meta.id}')
     # 如果是重放请求，且重放请求类型为漏洞验证，更新漏洞状态为
     taint_value = kwargs['taint_value']
     timestamp = int(time.time())
@@ -235,7 +235,7 @@ def save_vul(vul_meta, vul_level, strategy_id, vul_stack, top_stack, bottom_stac
         taint_position = ''
 
     vul = IastVulnerabilityModel.objects.filter(
-        strategy_id=strategy_id,
+        hook_strategy_id=hook_strategy_id,
         uri=vul_meta.uri,
         http_method=vul_meta.http_method,
         agent=vul_meta.agent,
@@ -267,6 +267,7 @@ def save_vul(vul_meta, vul_level, strategy_id, vul_stack, top_stack, bottom_stac
         from dongtai.models.hook_type import HookType
         hook_type = HookType.objects.filter(vul_strategy_id=strategy_id).first()
         vul = IastVulnerabilityModel.objects.create(
+            hook_strategy_id=hook_strategy_id,
             strategy_id=strategy_id,
             # fixme: delete field hook_type
             hook_type=hook_type if hook_type else HookType.objects.first(),
@@ -333,7 +334,7 @@ def create_vul_recheck_task(vul_id, agent, timestamp):
         )
 
 
-def handler_replay_vul(vul_meta, vul_level, strategy_id, vul_stack, top_stack, bottom_stack, **kwargs):
+def handler_replay_vul(vul_meta, vul_level, hook_strategy_id, strategy_id, vul_stack, top_stack, bottom_stack, **kwargs):
     timestamp = int(time.time())
     vul = IastVulnerabilityModel.objects.filter(id=kwargs['relation_id']).first()
     logger.info(f'handle vul replay, current strategy:{vul.strategy_id}, target hook_type:{strategy_id}')
@@ -351,13 +352,13 @@ def handler_replay_vul(vul_meta, vul_level, strategy_id, vul_stack, top_stack, b
             update_time=timestamp
         )
     else:
-        vul = save_vul(vul_meta, vul_level, strategy_id, vul_stack, top_stack, bottom_stack, **kwargs)
+        vul = save_vul(vul_meta, vul_level, hook_strategy_id, strategy_id, vul_stack, top_stack, bottom_stack, **kwargs)
         create_vul_recheck_task(vul_id=vul.id, agent=vul.agent, timestamp=timestamp)
     return vul
 
 
 @receiver(vul_found)
-def handler_vul(vul_meta, vul_level, strategy_id, vul_stack, top_stack, bottom_stack, **kwargs):
+def handler_vul(vul_meta, vul_level, hook_strategy_id, strategy_id, vul_stack, top_stack, bottom_stack, **kwargs):
     """
     保存漏洞数据
     :param vul_meta:
@@ -378,15 +379,15 @@ def handler_vul(vul_meta, vul_level, strategy_id, vul_stack, top_stack, bottom_s
         if replay_type == const.VUL_REPLAY:
             kwargs['relation_id'] = relation_id
             kwargs['replay_id'] = replay_id
-            vul = handler_replay_vul(vul_meta, vul_level, strategy_id, vul_stack, top_stack, bottom_stack, **kwargs)
+            vul = handler_replay_vul(vul_meta, vul_level, hook_strategy_id, strategy_id, vul_stack, top_stack, bottom_stack, **kwargs)
         elif replay_type == const.REQUEST_REPLAY:
             # 数据包调试数据暂不检测漏洞
             vul = None
         else:
-            vul = save_vul(vul_meta, vul_level, strategy_id, vul_stack, top_stack, bottom_stack, **kwargs)
+            vul = save_vul(vul_meta, vul_level, hook_strategy_id, strategy_id, vul_stack, top_stack, bottom_stack, **kwargs)
             create_vul_recheck_task(vul_id=vul.id, agent=vul.agent, timestamp=timestamp)
     except Exception as e:
-        vul = save_vul(vul_meta, vul_level, strategy_id, vul_stack, top_stack, bottom_stack, **kwargs)
+        vul = save_vul(vul_meta, vul_level, hook_strategy_id, strategy_id, vul_stack, top_stack, bottom_stack, **kwargs)
         create_vul_recheck_task(vul_id=vul.id, agent=vul.agent, timestamp=timestamp)
 
     if vul:

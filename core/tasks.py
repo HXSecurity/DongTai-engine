@@ -110,6 +110,7 @@ def search_and_save_vul(engine, method_pool_model, method_pool, strategy):
             sender="tasks.search_and_save_vul",
             vul_meta=method_pool_model,
             vul_level=vul_strategy['level'],
+            hook_strategy_id=strategy.get("strategy").id,
             strategy_id=vul_strategy['id'],
             vul_stack=stack,
             top_stack=source_sign,
