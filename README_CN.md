@@ -35,7 +35,7 @@ DongTai-Engine用于处理DongTai探针采集到的数据，功能如下：
 
 1. 拉取官方镜像
 ```shell script
-$ docker pull registry.cn-beijing.aliyuncs.com/secnium/iast-saas-engine:latest
+$ docker pull registry.cn-beijing.aliyuncs.com/secnium/iast-saas-engine:1.2.0
 ```
 
 2. 创建配置文件：`/etc/dongtai/config.ini`，内容如下：
@@ -72,19 +72,19 @@ access_key_secret = access_key
 
 3. 启动`dongtai-engine`容器并映射配置文件
 ```shell script
-$ docker run -d --name dongtai-engine -v /etc/dongtai/config.ini:/opt/dongtai/engine/conf/config.ini --restart=always secnium/iast-saas-engine:latest
+$ docker run -d --name dongtai-engine -v /etc/dongtai/config.ini:/opt/dongtai/engine/conf/config.ini --restart=always secnium/iast-saas-engine:1.2.0
 ```
 
 4. 启动`dongtai-engine-task`容器并映射配置文件
 ```shell script
-$ docker run -d --name dongtai-engine-task -v /etc/dongtai/config.ini:/opt/dongtai/engine/conf/config.ini --restart=always secnium/iast-saas-engine:latest bash /opt/dongtai/engine/docker/entrypoint.sh
+$ docker run -d --name dongtai-engine-task -v /etc/dongtai/config.ini:/opt/dongtai/engine/conf/config.ini --restart=always secnium/iast-saas-engine:1.2.0 bash /opt/dongtai/engine/docker/entrypoint.sh
 ```
 
 ### 构建镜像部署
 
 1. 构建镜像
 ```shell script
-$ docker build -t secnium/iast-saas-engine:latest .
+$ docker build -t secnium/iast-saas-engine:1.2.0 .
 ```
 
 2. 创建配置文件：`/etc/dongtai/config.ini`，内容如下：
@@ -121,12 +121,12 @@ access_key_secret = access_key
 
 3. 启动`dongtai-engine`容器并映射配置文件
 ```shell script
-$ docker run -d --name dongtai-engine -v /etc/dongtai/config.ini:/opt/dongtai/engine/conf/config.ini --restart=always secnium/iast-saas-engine:latest
+$ docker run -d --name dongtai-engine -v /etc/dongtai/config.ini:/opt/dongtai/engine/conf/config.ini --restart=always secnium/iast-saas-engine:1.2.0
 ```
 
 4. 启动`dongtai-engine-task`容器并映射配置文件
 ```shell script
-$ docker run -d --name dongtai-engine-task -v /etc/dongtai/config.ini:/opt/dongtai/engine/conf/config.ini --restart=always secnium/iast-saas-engine:latest bash /opt/dongtai/engine/docker/entrypoint.sh
+$ docker run -d --name dongtai-engine-task -v /etc/dongtai/config.ini:/opt/dongtai/engine/conf/config.ini --restart=always secnium/iast-saas-engine:1.2.0 bash /opt/dongtai/engine/docker/entrypoint.sh
 ```
 
 ### 文档
