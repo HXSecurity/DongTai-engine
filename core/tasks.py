@@ -452,7 +452,7 @@ def update_one_sca(agent_id, package_path, package_signature, package_name, pack
         asset_count = Asset.objects.values("id").filter(signature_value=package_signature,
                                                         agent__in=current_version_agents).count()
     else:
-        package_signature = sha1('-'.join([package_name, version]))
+        package_signature = sha_1('-'.join([package_name, version]))
         asset_count = Asset.objects.values("id").filter(package_name=package_name,
                                                         version=version,
                                                         agent__in=current_version_agents).count()
@@ -502,7 +502,7 @@ def update_all_sca():
     except Exception as e:
         logger.error(f'SCA离线检测出错，错误原因：{e}')
 
-def sha1(raw):
+def sha_1(raw):
     h = sha1()
     h.update(raw.encode('utf-8'))
     return h.hexdigest()
