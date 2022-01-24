@@ -69,6 +69,9 @@ cc_addr = cc_addr
 [aliyun_oss]
 access_key = access_key
 access_key_secret = access_key
+
+[sca]
+base_url = sca base url
 ```
 
 3. Start the `dongtai-engine` container and map the configuration file
