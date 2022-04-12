@@ -14,3 +14,8 @@ doc
 *.log.*
 conf/config.ini
 celerybeat.pid
+upload/reports/*.html
+upload/reports/*.pdf
+upload/reports/*.xlsx
+upload/reports/*.docx
+dongtai/
