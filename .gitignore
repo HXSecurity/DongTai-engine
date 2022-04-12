@@ -11,7 +11,6 @@ db/*
 #Dockerfile
 doc
 *.log
-*.log.*
 conf/config.ini
 celerybeat.pid
 upload/reports/*.html
