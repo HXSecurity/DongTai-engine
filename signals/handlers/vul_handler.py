@@ -392,7 +392,7 @@ def handler_vul(vul_meta, vul_level, strategy_id, vul_stack, top_stack, bottom_s
         create_vul_recheck_task(vul_id=vul.id, agent=vul.agent, timestamp=timestamp)
 
     if vul:
-        send_to_wechat(vul)
+        # send_to_wechat(vul)
         send_vul_notify(vul)
 
 
@@ -471,6 +471,8 @@ def send_to_wechat(vul):
     todo 发送漏洞通知到企业微信
     :return:
     """
+    return
+
     wechat = "https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=xxxx"
     header = {
         "Content-Type": "application/json",

@@ -11,23 +11,20 @@ class MyTestCase(DongTaiTestCase):
         from core.tasks import vul_recheck
         vul_recheck()
 
+    def test_report(self):
+        from core.tasks import export_report
+        export_report()
+
     def test_search_vul_from_replay_method_pool(self):
         from core.tasks import search_vul_from_replay_method_pool
         method_id = 110
         search_vul_from_replay_method_pool(method_id)
 
     def test_search_vul_from_method_pool(self):
-        method_pool_id = 2473688
+        method_pool_id = 647318
+        print("----")
         from core.tasks import search_vul_from_method_pool
         search_vul_from_method_pool(method_pool_id)
-
-    def test_web_hook_run(self):
-
-        from core.web_hook import forward_for_upload
-        id = 1
-        reports = {"a":1}
-        report_type = 1
-        forward_for_upload(id, reports, report_type)
 
     def test_update_agent_status(self):
         from core.tasks import update_agent_status
